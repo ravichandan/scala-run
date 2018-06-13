@@ -6,51 +6,33 @@ object TheBomberManGame {
   def bomberMan(n: Int, grid: Array[String]): Array[String] = {
 
 
-    val chars: Array[Array[Char]] = grid.map(s => s.toCharArray);
-    if (n < 2) return grid;
-
-    val grid2 : Array[Array[Int]] =grid.map(line => line.replace('O','2').map(c=> if(c=='O') 2 else 0).toArray);
-    //    for (c <- 0 until itr) {
-
+    val grid2: Array[Array[Int]] = grid.map(line => line.map(c => if (c == 'O') 2 else 0).toArray);
     for (i <- 0 until grid2.length) {
       for (j <- 0 until grid2(i).length) {
-
-        //          print(i + " " + j);
-        if (chars(i)(j) == 'O') {
-          if (i > 0 && chars(i - 1)(j) != 'O') {
-            chars(i - 1)(j) = 'X';
-          }
-          if (i < chars.length - 1 && chars(i + 1)(j) != 'O') {
-            chars(i + 1)(j) = 'X';
-          }
-
-          if (j > 0 && chars(i)(j - 1) != 'O') {
-            chars(i)(j - 1) = 'X';
-          }
-          if (j < chars(i).length - 1 && chars(i)(j + 1) != 'O') {
-            chars(i)(j + 1) = 'X';
-          }
-
-        }
-
+        print(grid2(i)(j));
       }
+      println();
     }
-    for (i <- 0 until chars.length) {
-      for (j <- 0 until chars(i).length) {
-        if (chars(i)(j) == '.') {
-          chars(i)(j) = 'O';
+    //    for (c <- 0 until itr) {
+    for (_ <- 0 until n % 4) {
+      for (i <- 0 until grid2.length) {
+        for (j <- 0 until grid2(i).length) {
+          if(grid2(i)(j) == 0){
+            grid2(i)(j)=3;
+          }else{
+            grid2(i)(j) -= 1;
+          }
+          print(grid2(i)(j));
         }
-        else {
-          chars(i)(j) = '.';
-        }
+        println();
       }
+      println("--------------");
     }
+    val chars: Array[String] = grid2.map(arr => new String(arr.map(i => if (i == 0) '.' else 'O')));
 
-    //    }
 
-    val result = chars.map(arr => new String(arr));
 
-    return result;
+    return chars;
   }
 
   def main(args: Array[String]): Unit = {
@@ -69,7 +51,7 @@ object TheBomberManGame {
       "...",
       ".O.",
       "...")
-    //    bomberMan(6, grid).map(ele => println(ele));
-    bomberMan(3, grid2).map(ele => println(ele));
+    bomberMan(3, grid).map(ele => println(ele));
+    //    bomberMan(3, grid2).map(ele => println(ele));
   }
 }
