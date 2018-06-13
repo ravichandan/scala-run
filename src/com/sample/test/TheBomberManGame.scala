@@ -13,13 +13,30 @@ object TheBomberManGame {
       }
       println();
     }
+
+    println();
+    println();
     //    for (c <- 0 until itr) {
     for (_ <- 0 until n % 4) {
       for (i <- 0 until grid2.length) {
         for (j <- 0 until grid2(i).length) {
-          if(grid2(i)(j) == 0){
-            grid2(i)(j)=3;
-          }else{
+          if (grid2(i)(j) == 0) {
+            grid2(i)(j) = 3;
+          } else {
+            if (grid2(i)(j) == 1) {
+              if (i > 0 && grid2(i - 1)(j) != 1) {
+                grid2(i - 1)(j) = 0;
+              }
+              if (j > 0 && grid2(i)(j - 1) != 1) {
+                grid2(i)(j - 1) = 0;
+              }
+              if (i < grid2.length - 1 && grid2(i + 1)(j) != 1) {
+                grid2(i + 1)(j) = 1;
+              }
+              if (j < grid2(i).length - 1 && grid2(i)(j + 1) != 1) {
+                grid2(i)(j + 1) = 1;
+              }
+            }
             grid2(i)(j) -= 1;
           }
           print(grid2(i)(j));
